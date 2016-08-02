@@ -1,0 +1,42 @@
+<!--
+  Generated template for the WaitingroomPage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>waitingroom</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div>
+    <h1 (click)="changeTeam()">A</h1>
+    <ion-list>
+
+      <ion-item *ngFor="let ateam of Ateam">
+            {{ateam}}
+      </ion-item>
+
+    </ion-list>
+  </div>
+  <div>
+    <h1 (click)="changeTeam()">B</h1>
+    <ion-list>
+
+      <ion-item *ngFor="let bteam of Bteam">
+          {{bteam}}
+        </ion-item>
+
+      </ion-list>
+  </div>
+<section *ngIf="isMaster">
+    <button (click)="playgame()"> playgame </button>
+</section>
+
+
+</ion-content>

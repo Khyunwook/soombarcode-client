@@ -1,0 +1,43 @@
+<!--
+  Generated template for the MakeroomPage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>makeroom</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+
+  <ion-item>
+    <ion-label fixed>방이름</ion-label>
+    <ion-input [(ngModel)]="roomname" placeholder="방이름" type="text" value=""></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label fixed>비밀번호</ion-label>
+    <ion-input [(ngModel)]="roompass" placeholder="비밀번호" type="password"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>N vs N</ion-label>
+    <ion-select [(ngModel)]="gaming">
+      <ion-option value="1">1 vs 1</ion-option>
+      <ion-option value="2">2 vs 2</ion-option>
+      <ion-option value="3">3 vs 3</ion-option>
+      <ion-option value="4">4 vs 4</ion-option>
+      <ion-option value="5">5 vs 5</ion-option>
+      <ion-option value="6">6 vs 6</ion-option>
+    </ion-select>
+  </ion-item>
+
+</ion-list>
+  <button (click)="makeroom()"> makeroom </button>
+</ion-content>
