@@ -4,6 +4,7 @@ import { MakeroomPage } from '../makeroom/makeroom';
 import { WaitingroomPage } from '../waitingroom/waitingroom';
 import { Data } from '../../providers/data/data';
 import { Roomservice } from '../../providers/roomservice/roomservice';
+import { TabsPage } from '../tabs/tabs';
 /*
   Generated class for the RoomPage page.
 
@@ -19,21 +20,24 @@ export class RoomPage {
   join_user : any;
 
   constructor(private nav: NavController, public dataService: Data, public RoomService : Roomservice) {
-     dataService.getUser().then(res=>{
+    dataService.getUser().then(res=>{
         if(res){
           this.join_user =JSON.parse(res);
+          console.log('join_user',this.join_user);
         }
     });
-    this.RoomService.updateroomlist();
+
     this.refreshroom();
   }
 
   refreshroom(){
-    this.dataService.getRooms().then(res=>{
-      if(res){
-        console.log("room.res",res);
-        this.rooms=JSON.parse(res);
-      }
+    this.RoomService.updateroomlist().then(()=>{
+      this.dataService.getRooms().then(res=>{
+        if(res){
+          console.log("room.res",res);
+          this.rooms=JSON.parse(res);
+        }
+      });
     });
   }
 
@@ -49,7 +53,7 @@ export class RoomPage {
       join_user_id : this.join_user.userid,
       join_user_name : this.join_user.username,
       limit : room.nton,
-      master : room.master
+      master_id : room.master_id
     }
     this.nav.push(WaitingroomPage,{roominfo : roomObj});
   }

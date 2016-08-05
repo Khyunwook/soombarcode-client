@@ -3,6 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Roomservice } from '../../providers/roomservice/roomservice';
 import { Socket } from '../../providers/socket/socket';
 import { GameplayPage } from '../gameplay/gameplay';
+import { RoomPage } from '../room/room';
+import { TabsPage } from '../tabs/tabs';
 /*
   Generated class for the WaitingroomPage page.
 
@@ -20,62 +22,89 @@ export class WaitingroomPage {
   zone : any;
   socket : any;
   isMaster: boolean;
+  currentUser_id : any;
+  currentTeam : string;
 
   constructor(private nav: NavController, public navParams: NavParams, public SocketService : Socket , public ngzone : NgZone) {
 
     this.zone = ngzone;
     this.roominfo = this.navParams.get('roominfo');
-    if(this.roominfo.master === this.roominfo.join_user_id){
+    console.log('roominfo',this.roominfo);
+    if(this.roominfo.master_id === this.roominfo.join_user_id){
       this.isMaster = true;
     }else{
       this.isMaster = false;
     }
-    console.log("isMaster",this.isMaster);
-    this.getsocket();
-    this.SocketSendRoom();
+    this.currentUser_id = this.roominfo.join_user_id;
 
+    this.getsocket();
+    this.SocketJoinRoom();
+    this.waitgame();
   }
 
   getsocket(){
     this.socket = this.SocketService.getSocket();
   }
 
-  SocketSendRoom(){
-    let zone = this.zone;
-    console.log('teamlength',this.Ateam);
-    console.log('wait-roominfo',this.roominfo);
+  SocketJoinRoom(){
     this.socket.emit('joinroom', {room : this.roominfo});
 
     this.socket.on('userlist',(data)=>{
-      console.log('rec',data.userskey);
-      zone.run(()=>{
-
-        for(let i = 0; i<data.userskey.length; i++){
-          if(this.Ateam.indexOf(data.users[data.userskey[i]])=== -1 )
-          this.Ateam.push(data.users[data.userskey[i]]);
-        }
-      });
-      //this.Ateam = data.users );
-      console.log("Ateam",this.Ateam);
+      this.roomlistupdate(data);
     });
   }
 
-  changeTeam(){
-    var findindex = this.Ateam.indexOf(this.roominfo.join_user_name);
-    if(findindex===-1){
-      console.log("Ateam null");
-      var findindex = this.Bteam.indexOf(this.roominfo.join_user_name);
-      this.Ateam.push(this.Bteam[this.Bteam.indexOf(this.roominfo.join_user_name)]);
-      this.Bteam.splice(findindex,findindex+1);
-    }else{
-      console.log("Bteam null");
-      this.Bteam.push(this.Ateam[this.Ateam.indexOf(this.roominfo.join_user_name)]);
-      this.Ateam.splice(findindex,findindex+1);
+  roomlistupdate( userlist ){
+    let zone = this.zone;
+      console.log('userlistupdata',userlist.users);
+      zone.run(()=>{
+
+        this.Ateam.splice(0,this.Ateam.length);
+        this.Bteam.splice(0,this.Bteam.length);
+        for(let i =0; i<userlist.users.length; i++){
+          console.log('foruserlist',userlist.users[i]);
+          if(userlist.users[i].juser_id===this.currentUser_id){
+            this.currentTeam = userlist.users[i].team;
+          }
+          if(userlist.users[i].team==='A'){
+            this.Ateam.push(userlist.users[i]);
+          }else{
+            this.Bteam.push(userlist.users[i]);
+          }
+        }
+      });
+  }
+
+  SocketUpdateRoom(join_user_id, team){
+    console.log('updateRoom',join_user_id)
+    this.socket.emit('joinroomupdate',{ room : this.roominfo, juser : { join_user_id : join_user_id, join_user_team : team }});
+  }
+
+  changeTeam(team){
+
+    console.log('currt_team,team',this.currentTeam,team);
+    if(this.currentTeam !== team){
+      this.SocketUpdateRoom(this.currentUser_id,team);
     }
   }
+
+  goback(){
+    this.nav.push( TabsPage );
+    this.nav.pop();
+    this.socket.emit('outroomupdate',{ room : this.roominfo, user_id : this.currentUser_id } );
+  }
+
   playgame(){
-    this.nav.push( GameplayPage );
-    this.nav.pop(WaitingroomPage);
+    this.socket.emit('startgame',{ room : this.roominfo });
+    //this.nav.push( GameplayPage );
+    //this.nav.pop();//WaitingroomPage
+  }
+  waitgame(){
+    this.socket.on('playgame',(data)=>{
+      console.log('playgame');
+      this.nav.push( GameplayPage );
+      //this.nav.pop();
+    })
   }
 
 

@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+    <ion-buttons start>
+      <button (click)="goback()"><ion-icon name="arrow-back"></ion-icon></button>
+    </ion-buttons>
     <ion-title>waitingroom</ion-title>
   </ion-navbar>
 
@@ -15,21 +18,21 @@
 
 <ion-content padding>
   <div>
-    <h1 (click)="changeTeam()">A</h1>
+    <h1 (click)="changeTeam('A')">A</h1>
     <ion-list>
 
       <ion-item *ngFor="let ateam of Ateam">
-            {{ateam}}
+            {{ateam.juser_name}}
       </ion-item>
 
     </ion-list>
   </div>
   <div>
-    <h1 (click)="changeTeam()">B</h1>
+    <h1 (click)="changeTeam('B')">B</h1>
     <ion-list>
 
       <ion-item *ngFor="let bteam of Bteam">
-          {{bteam}}
+          {{bteam.juser_name}}
         </ion-item>
 
       </ion-list>

@@ -35,8 +35,8 @@ export class MakeroomPage {
       roomname : this.roomname,
       password : this.roompass,
       nton : this.gaming,
-      master : this.masterUser.userid,
-      name : this.masterUser.username
+      master_id : this.masterUser.userid,
+      master_name : this.masterUser.username
     }
 
     this.RoomService.makeroom(roomobj).then( res=>{

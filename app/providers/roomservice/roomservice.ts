@@ -62,19 +62,22 @@ export class Roomservice {
   }
 
   updateroomlist(){
-    this.getRooms().then(res =>{
-      console.log("res",res);
-      this.dataService.setRooms(res);
+    return new Promise(resolve => {
+      this.getRooms().then(res =>{
+        console.log("res",res);
+        this.dataService.setRooms(res);
+        resolve(true);
+      });
     });
   }
   makejoinroomobj(res,join_user){
     console.log('makeroom',res);
     let roomobj = {
       room_id : res.room.room_id,
-      join_user_id : join_user.master,
-      join_user_name : join_user.name,
+      join_user_id : join_user.master_id,
+      join_user_name : join_user.master_name,
       limit : res.room.nton,
-      master : res.room.master
+      master_id : res.room.master_id,
     };
     return roomobj;
   }
