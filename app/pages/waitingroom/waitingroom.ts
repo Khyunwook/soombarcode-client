@@ -95,16 +95,16 @@ export class WaitingroomPage {
   }
 
   playgame(){
-    this.socket.emit('startgame',{ room : this.roominfo });
+    this.socket.emit('startgame',{ room : this.roominfo, Ateam : this.Ateam, Bteam : this.Bteam });
     //this.nav.push( GameplayPage );
     //this.nav.pop();//WaitingroomPage
   }
   waitgame(){
     this.socket.on('playgame',(data)=>{
-      console.log('playgame');
-      this.nav.push( GameplayPage );
+      console.log('playgame',data);
+      this.nav.push( GameplayPage, {room_id : data.room_id, users : data.users} );
       //this.nav.pop();
-    })
+    });
   }
 
 
