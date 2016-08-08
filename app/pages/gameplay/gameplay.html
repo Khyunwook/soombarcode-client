@@ -17,24 +17,46 @@
   <div>
     <h1>A</h1>
     <ion-list>
-
-      <ion-item *ngFor="let ateam of Ateam">
-            {{ateam.juser_name}}
-            {{ateam.hp}}
-      </ion-item>
-
+      <ion-item-sliding *ngFor="let ateam of Ateam" (click)="useItem(ateam.juser_id)">
+        <ion-item >
+          {{ateam.juser_name}}
+          HP {{ateam.hp}}
+        </ion-item>
+        <ion-item-options side="left">
+        <button primary>
+          <ion-icon name="text"></ion-icon>
+          +
+        </button>
+        <button secondary>
+        <ion-icon name="text"></ion-icon>
+          Attack
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
     </ion-list>
   </div>
   <div>
     <h1>B</h1>
     <ion-list>
-
-      <ion-item *ngFor="let bteam of Bteam">
+      <ion-item-sliding *ngFor="let bteam of Bteam" (click)="useItem(bteam.juser_id)">
+        <ion-item >
           {{bteam.juser_name}}
-          {{bteam.hp}}
+          HP {{bteam.hp}}
         </ion-item>
-
-      </ion-list>
+        <ion-item-options side="right">
+        <button primary>
+          <ion-icon name="text"></ion-icon>
+          +
+        </button>
+        <button secondary>
+        <ion-icon name="text"></ion-icon>
+          Attack
+        </button>
+    </ion-item-options>
+    </ion-item-sliding>
+    </ion-list>
   </div>
   <button (click)="playbarcode()"> barcode </button>
+  <button (click)="tempbarcode()"> tempbarcode </button>
+  <button (click)="openInventory()"> Inven </button>
 </ion-content>

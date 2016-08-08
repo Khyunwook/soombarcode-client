@@ -8,6 +8,7 @@ import {Loginservice} from './providers/loginservice/loginservice';
 import {Data} from './providers/data/data';
 import {Socket} from './providers/socket/socket';
 import {Roomservice} from './providers/roomservice/roomservice';
+import {Gameservice} from './providers/gameservice/gameservice';
 
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>'
@@ -27,4 +28,4 @@ export class MyApp {
   }
 }
 
-ionicBootstrap(MyApp, [Loginservice,Roomservice, Data, Socket]);
+ionicBootstrap(MyApp, [Loginservice,Roomservice,Gameservice, Data, Socket]);

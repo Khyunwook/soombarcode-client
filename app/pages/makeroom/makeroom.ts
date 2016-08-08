@@ -34,7 +34,7 @@ export class MakeroomPage {
     let roomobj = {
       roomname : this.roomname,
       password : this.roompass,
-      nton : this.gaming,
+      difficult : this.gaming,
       master_id : this.masterUser.userid,
       master_name : this.masterUser.username
     }

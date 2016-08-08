@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { Roomservice } from '../../providers/roomservice/roomservice';
 import { Socket } from '../../providers/socket/socket';
 import { GameplayPage } from '../gameplay/gameplay';
@@ -25,7 +25,7 @@ export class WaitingroomPage {
   currentUser_id : any;
   currentTeam : string;
 
-  constructor(private nav: NavController, public navParams: NavParams, public SocketService : Socket , public ngzone : NgZone) {
+  constructor(private nav: NavController, public navParams: NavParams, public SocketService : Socket , public ngzone : NgZone, public viewCtrl: ViewController) {
 
     this.zone = ngzone;
     this.roominfo = this.navParams.get('roominfo');
@@ -57,6 +57,7 @@ export class WaitingroomPage {
   roomlistupdate( userlist ){
     let zone = this.zone;
       console.log('userlistupdata',userlist.users);
+
       zone.run(()=>{
 
         this.Ateam.splice(0,this.Ateam.length);
@@ -89,15 +90,19 @@ export class WaitingroomPage {
   }
 
   goback(){
-    this.nav.push( TabsPage );
-    this.nav.pop();
+    //this.nav.push( TabsPage );
+    //this.nav.pop();
+
     this.socket.emit('outroomupdate',{ room : this.roominfo, user_id : this.currentUser_id } );
+    this.viewCtrl.dismiss();
   }
 
   playgame(){
+
     this.socket.emit('startgame',{ room : this.roominfo, Ateam : this.Ateam, Bteam : this.Bteam });
-    //this.nav.push( GameplayPage );
-    //this.nav.pop();//WaitingroomPage
+
+  //  this.nav.push( GameplayPage );
+  //  this.nav.pop();//WaitingroomPage
   }
   waitgame(){
     this.socket.on('playgame',(data)=>{

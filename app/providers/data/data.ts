@@ -34,10 +34,12 @@ export class Data {
     return this.storage.get('rooms');
   }
 
-
-  setLocation(data: Object):void{
+  setInventory(data: Object):void{
     let newData = JSON.stringify(data);
-    this.storage.set('location',newData);
+    this.storage.set('inventory',newData);
+  }
+  getInventory(): Promise<any> {
+    return this.storage.get('inventory');
   }
   destroy(){
     this.storage.clear();

@@ -22,7 +22,7 @@ export class Loginservice {
     this.http = http;
     this.isLoggedin = false;
     this.authToken = null;
-    //this.serverUrl = "http://ec2-52-78-1-158.ap-northeast-2.compute.amazonaws.com";
+    //this.serverUrl = "http://ec2-52-78-1-158.ap-northeast-2.compute.amazonaws.com:3333";
     this.serverUrl ="http://localhost:3333";
   }
 

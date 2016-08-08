@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Alert } from 'ionic-angular';
+import { NavController, Alert, Modal } from 'ionic-angular';
 import { MakeroomPage } from '../makeroom/makeroom';
 import { WaitingroomPage } from '../waitingroom/waitingroom';
 import { Data } from '../../providers/data/data';
@@ -46,7 +46,7 @@ export class RoomPage {
   }
 
   inRoomlist(room){
-    console.log("joinroom",room)
+    console.log("joinroom",room);
 
     var roomObj ={
       room_id : room._id,
@@ -55,6 +55,8 @@ export class RoomPage {
       limit : room.nton,
       master_id : room.master_id
     }
-    this.nav.push(WaitingroomPage,{roominfo : roomObj});
+    let modal = Modal.create(WaitingroomPage, {roominfo : roomObj});
+    this.nav.present(modal);
+    //this.nav.push(WaitingroomPage,{roominfo : roomObj});
   }
 }

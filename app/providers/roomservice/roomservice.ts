@@ -22,8 +22,8 @@ export class Roomservice {
     this.data = null;
     this.ismakeroom = false;
     this.joinroomobj = new Object();
-    //this.serverUrl = "http://ec2-52-78-1-158.ap-northeast-2.compute.amazonaws.com";
-    this.serverUrl ="http://localhost";
+    //this.serverUrl = "http://ec2-52-78-1-158.ap-northeast-2.compute.amazonaws.com:3333";
+    this.serverUrl ="http://localhost:3333";
     this.updateroomlist();
   }
 
@@ -32,7 +32,7 @@ export class Roomservice {
     headers.append('Content-Type', 'application/json');
     console.log('roomservice',roomobj);
     return new Promise(resolve =>{
-      this.http.post(this.serverUrl+':3333/room/makeroom', JSON.stringify(roomobj), {headers: headers})
+      this.http.post(this.serverUrl+'/room/makeroom', JSON.stringify(roomobj), {headers: headers})
         .subscribe(res => {
           if(res.json().success){
             console.log(res.json().token);
@@ -51,7 +51,7 @@ export class Roomservice {
   getRooms(){
    return new Promise(resolve => {
 
-     this.http.get(this.serverUrl+':3333/room/getrooms')
+     this.http.get(this.serverUrl+'/room/getrooms')
        .map(res => res.json())
        .subscribe(data => {
          console.log("res room",data);
