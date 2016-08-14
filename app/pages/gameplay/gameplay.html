@@ -14,49 +14,121 @@
 
 
 <ion-content padding>
+  <ion-card *ngIf="timer">
+    <ion-card-header>
+        <button *ngIf="timeInSeconds && timeInSeconds > 0" large block clear class="timer-button">{{timer.displayTime}}</button>
+        <button *ngIf="!timeInSeconds || timeInSeconds == 0" large block clear class="timer-button">Timer set up incorrectly</button>
+    </ion-card-header>
+<!--    <ion-item *ngIf="timeInSeconds && timeInSeconds > 0">
+
+        <button clear danger small (click)="initTimer()" item-left *ngIf="!timer.runTimer && (timer.hasStarted || timer.hasFinished) || timer.hasFinished">
+            <ion-icon name="refresh"></ion-icon>
+            Reset
+        </button>
+        <button clear small primary (click)="pauseTimer()" item-right *ngIf="timer.runTimer && timer.hasStarted && !timer.hasFinished">
+            <ion-icon name="pause"></ion-icon>
+            Pause
+        </button>
+        <button clear small primary (click)="resumeTimer()" item-right *ngIf="!timer.runTimer && timer.hasStarted && !timer.hasFinished">
+            <ion-icon name="play"></ion-icon>
+            Resume
+        </button>
+        <button clear small primary (click)="startTimer()" item-right *ngIf="!timer.hasStarted">
+            <ion-icon name="play"></ion-icon>
+            Start
+        </button>
+    </ion-item>-->
+</ion-card>
   <div>
-    <h1>A</h1>
+    <h1>시민</h1>
     <ion-list>
-      <ion-item-sliding *ngFor="let ateam of Ateam" (click)="useItem(ateam.juser_id)">
+      <ion-item-sliding *ngFor="let user of AUsers; let i=index">
+
+          <ion-item *ngIf='user.live'>
+            <ion-thumbnail item-left>
+              <img src="images/char/char{{i%5+1}}.png">
+            </ion-thumbnail>
+            {{user.juser_name}}
+          <!--{{user.is_clue}}-->
+            <ion-list class = "test">
+              <ion-item *ngFor= "let cuser of user.cusers">
+                {{cuser.c_uid}}
+              </ion-item>
+            </ion-list>
+          </ion-item>
+
+          <ion-item *ngIf='!user.live'>
+            <ion-thumbnail item-left>
+              <img src="images/char/char{{i%5+1}}b.png">
+            </ion-thumbnail>
+            {{user.juser_name}}
+             is DIE
+          <!--{{user.is_clue}}-->
+            <ion-list class = "test">
+              <ion-item *ngFor= "let cuser of user.cusers">
+                {{cuser.c_uid}}
+              </ion-item>
+            </ion-list>
+          </ion-item>
+
+
+          <ion-item-options side="left" >
+            <button *ngIf="!is_clue&&is_fullitem" primary (click)="openProfile(user)">
+              <ion-icon name="text"></ion-icon>
+              프로필확인
+            </button>
+            <button *ngIf="is_clue && is_fullitem" primary (click)="kill(user)">
+              <ion-icon name="text"></ion-icon>
+              암살
+            </button>
+            <button secondary (click)="moveM(user)">
+            <ion-icon name="text"></ion-icon>
+            용의자 지목
+          </button>
+        </ion-item-options>
+
+    </ion-item-sliding>
+    </ion-list>
+  </div>
+
+  <div>
+    <h1>용의자</h1>
+    <ion-list>
+      <ion-item-sliding *ngFor="let user of MUsers; let i = index">
         <ion-item >
-          {{ateam.juser_name}}
-          HP {{ateam.hp}}
+          <ion-thumbnail item-left>
+            <img src="images/char/char{{i%5+1}}.png">
+          </ion-thumbnail>
+          {{user.juser_name}} 용의자
+          <h1 *ngIf ='!user.live'>DIE</h1>
+          <ion-list class = "test">
+            <ion-item *ngFor= "let cuser of user.cusers">
+              <ion-thumbnail item-left>
+                <img src="images/char/char{{i%5+1}}.png">
+              </ion-thumbnail>
+              {{cuser.c_uid}}
+            </ion-item>
+          </ion-list>
         </ion-item>
         <ion-item-options side="left">
-        <button primary>
+        <button *ngIf="!is_clue&&is_fullitem" primary>
           <ion-icon name="text"></ion-icon>
-          +
+          프로필확인
         </button>
-        <button secondary>
+        <button *ngIf="(is_clue && is_fullitem)" primary (click)="kill(user)">
+          <ion-icon name="text"></ion-icon>
+          암살
+        </button>
+        <button secondary (click)="moveA(user)">
         <ion-icon name="text"></ion-icon>
-          Attack
+          용의자 해제
         </button>
       </ion-item-options>
     </ion-item-sliding>
     </ion-list>
   </div>
-  <div>
-    <h1>B</h1>
-    <ion-list>
-      <ion-item-sliding *ngFor="let bteam of Bteam" (click)="useItem(bteam.juser_id)">
-        <ion-item >
-          {{bteam.juser_name}}
-          HP {{bteam.hp}}
-        </ion-item>
-        <ion-item-options side="right">
-        <button primary>
-          <ion-icon name="text"></ion-icon>
-          +
-        </button>
-        <button secondary>
-        <ion-icon name="text"></ion-icon>
-          Attack
-        </button>
-    </ion-item-options>
-    </ion-item-sliding>
-    </ion-list>
-  </div>
-  <button (click)="playbarcode()"> barcode </button>
-  <button (click)="tempbarcode()"> tempbarcode </button>
-  <button (click)="openInventory()"> Inven </button>
+
+  <button (click)="playbarcode()" dark outline block> barcode </button>
+  <button (click)="tempbarcode()" dark outline block> tempbarcode </button>
+  <button (click)="openInventory()" dark outline block> Inven </button>
 </ion-content>

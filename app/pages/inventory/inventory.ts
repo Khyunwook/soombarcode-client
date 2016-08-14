@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 
 /*
   Generated class for the InventoryPage page.
@@ -12,10 +12,13 @@ import { NavController, ViewController } from 'ionic-angular';
 })
 export class InventoryPage {
 
-  constructor(private nav: NavController, public viewCtrl: ViewController) {
+  BedgeArr : any;
 
+  constructor(private nav: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+    this.BedgeArr = this.navParams.get('Bedgearr')
   }
   dismiss() {
     this.viewCtrl.dismiss();
+    //this.nav.pop();
   }
 }

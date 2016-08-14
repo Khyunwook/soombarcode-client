@@ -10,7 +10,7 @@
     <ion-buttons start>
       <button (click)="goback()"><ion-icon name="arrow-back"></ion-icon></button>
     </ion-buttons>
-    <ion-title>waitingroom</ion-title>
+    <ion-title>대기실 : {{roomname}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -18,28 +18,26 @@
 
 <ion-content padding>
   <div>
-    <h1 (click)="changeTeam('A')">A</h1>
+    <h1>플레이어</h1>
     <ion-list>
 
-      <ion-item *ngFor="let ateam of Ateam">
-            {{ateam.juser_name}}
+      <ion-item *ngFor="let wuser of wusers">
+        <ion-avatar item-left>
+          <img src="images/me.png">
+        </ion-avatar>
+            <h2>{{wuser.juser_name}}</h2>
+            <h1 class ="ready" *ngIf="wuser.ready">Ready</h1>
       </ion-item>
 
     </ion-list>
   </div>
-  <div>
-    <h1 (click)="changeTeam('B')">B</h1>
-    <ion-list>
 
-      <ion-item *ngFor="let bteam of Bteam">
-          {{bteam.juser_name}}
-        </ion-item>
-
-      </ion-list>
-  </div>
-<section *ngIf="isMaster">
-    <button (click)="playgame()"> playgame </button>
+<section *ngIf="is_fill_form">
+  <button dark outline block *ngIf="isMaster" (click)="playgame()"> playgame </button>
+  <button dark outline block *ngIf!="isMaster" (click)="onReady()"> Ready </button>
 </section>
+
+<button dark outline block (click)="input_profile()"> 프로필작성 </button>
 
 
 </ion-content>

@@ -42,7 +42,9 @@ export class RoomPage {
   }
 
   makeroom(): void {
-    this.nav.push( MakeroomPage );
+    let modal = Modal.create(MakeroomPage);
+    this.nav.present(modal);
+    //this.nav.push( MakeroomPage );
   }
 
   inRoomlist(room){
@@ -55,7 +57,7 @@ export class RoomPage {
       limit : room.nton,
       master_id : room.master_id
     }
-    let modal = Modal.create(WaitingroomPage, {roominfo : roomObj});
+    let modal = Modal.create(WaitingroomPage, {roominfo : roomObj, roomname : room.roomname});
     this.nav.present(modal);
     //this.nav.push(WaitingroomPage,{roominfo : roomObj});
   }

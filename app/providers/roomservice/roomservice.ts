@@ -22,21 +22,21 @@ export class Roomservice {
     this.data = null;
     this.ismakeroom = false;
     this.joinroomobj = new Object();
-    //this.serverUrl = "http://ec2-52-78-1-158.ap-northeast-2.compute.amazonaws.com:3333";
-    this.serverUrl ="http://localhost:3333";
+    this.serverUrl = "http://ec2-52-78-1-158.ap-northeast-2.compute.amazonaws.com:3333";
+    //this.serverUrl ="http://localhost:3333";
     this.updateroomlist();
   }
 
   makeroom(roomobj){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    console.log('roomservice',roomobj);
+    //console.log('roomservice',roomobj);
     return new Promise(resolve =>{
       this.http.post(this.serverUrl+'/room/makeroom', JSON.stringify(roomobj), {headers: headers})
         .subscribe(res => {
           if(res.json().success){
             console.log(res.json().token);
-            this.updateroomlist();
+            //this.updateroomlist();
             this.ismakeroom = true;
             resolve( this.makejoinroomobj(res.json(),roomobj));
             //this.storUserCredentials(res.json().token);
@@ -80,5 +80,8 @@ export class Roomservice {
       master_id : res.room.master_id,
     };
     return roomobj;
+  }
+  deleteroom(){
+
   }
 }

@@ -8,7 +8,7 @@
 
   <ion-navbar>
     <ion-toolbar>
-    <ion-title>Inventory</ion-title>
+    <ion-title>뱃지보관함</ion-title>
     <ion-buttons start>
       <button (click)="dismiss()">
         <span primary showWhen="ios">Cancel</span>
@@ -24,13 +24,16 @@
 
 <ion-content padding>
   <ion-list>
-  <ion-item>
-    <ion-avatar item-left>
-      <img src="img/avatar-finn.png">
-    </ion-avatar>
-    <h2>아이템 이름</h2>
-    <h3>아이템 설명</h3>
-    <p>x3</p>
+  <ion-item *ngFor = "let bedge of BedgeArr; let i = index">
+    <ion-thumbnail item-left>
+    <section *ngIf = "bedge">
+      <img src="images/badge/badge{{i+1}}.png">
+    </section>
+    <section *ngIf="!bedge">
+      <img src="images/badge/badge{{i+1}}b.png">
+    </section>
+    </ion-thumbnail>
+    <h3>{{i+1}} 번 뱃지</h3>
   </ion-item>
 </ion-list>
 </ion-content>

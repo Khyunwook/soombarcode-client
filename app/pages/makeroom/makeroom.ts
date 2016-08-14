@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Modal, ViewController } from 'ionic-angular';
 import { RoomPage } from '../room/room';
 import { Data } from '../../providers/data/data';
 import { Roomservice } from '../../providers/roomservice/roomservice';
@@ -20,7 +20,7 @@ export class MakeroomPage {
   gaming : string;
   masterUser : any;
 
-  constructor(private nav: NavController, public dataService : Data , public RoomService: Roomservice) {
+  constructor(private nav: NavController, public dataService : Data , public RoomService: Roomservice, public viewCtrl: ViewController) {
     this.masterUser;
     this.dataService.getUser().then(res=>{
        let currentUser = JSON.parse(res);
@@ -42,8 +42,10 @@ export class MakeroomPage {
     this.RoomService.makeroom(roomobj).then( res=>{
       console.log(res);
       if(res){
-        this.nav.push(WaitingroomPage, {roominfo : res});
-        this.nav.pop(MakeroomPage);
+        //this.nav.push(WaitingroomPage, {roominfo : res});
+        let modal = Modal.create(WaitingroomPage, {roominfo : res});
+        //this.viewCtrl.dismiss();
+        this.nav.present(modal);
       }
     });
 

@@ -1,0 +1,75 @@
+<!--
+  Generated template for the WriteProfilePage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>write profile</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <form [ngFormModel]="profileForm" (submit)="saveForm($event)">
+      <ion-item>
+        <ion-label>나이</ion-label>
+          <ion-range min="15" max="35" pin="true" ngControl="old">
+            <ion-icon range-left small name="md-person"></ion-icon>
+            <ion-icon range-right name="md-person-add"></ion-icon>
+        </ion-range>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>키</ion-label>
+          <ion-range min="160" max="180" pin="true" ngControl="height">
+            <ion-icon range-left small name="md-man"></ion-icon>
+            <ion-icon range-right name="md-man"></ion-icon>
+        </ion-range>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>국적</ion-label>
+        <ion-select ngControl="country">
+          <ion-option value="한국">한국</ion-option>
+          <ion-option value="미얀마">미얀마</ion-option>
+          <ion-option value="영국">영국</ion-option>
+          <ion-option value="보스니아헤르체보비나">보스니아헤르체보비나</ion-option>
+          <ion-option value="에티오피아">에티오피아</ion-option>
+          <ion-option value="코트디부아르">코트디부아르</ion-option>
+          <ion-option value="칠레">칠레</ion-option>
+          <ion-option value="브라질">브라질</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>직업</ion-label>
+        <ion-select ngControl="job">
+          <ion-option value="소설가">소설가</ion-option>
+          <ion-option value="연예인">연예인</ion-option>
+          <ion-option value="화가">화가</ion-option>
+          <ion-option value="프로그래머">프로그래머</ion-option>
+          <ion-option value="LG전자부장">LG전자부장</ion-option>
+          <ion-option value="농부">농부</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>취미</ion-label>
+        <ion-select ngControl="hobby">
+          <ion-option value="피겨스케이팅">피겨스케이팅</ion-option>
+          <ion-option value="마술">마술</ion-option>
+          <ion-option value="농구">농구</ion-option>
+          <ion-option value="당구">당구</ion-option>
+          <ion-option value="알고리즘문제풀이">알고리즘문제풀이</ion-option>
+          <ion-option value="기타">기타</ion-option>
+        </ion-select>
+      </ion-item>
+      <button dark outline block type="submit">Save</button>
+    </form>
+    </ion-list>
+</ion-content>

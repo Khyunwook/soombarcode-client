@@ -22,8 +22,8 @@ export class Loginservice {
     this.http = http;
     this.isLoggedin = false;
     this.authToken = null;
-    //this.serverUrl = "http://ec2-52-78-1-158.ap-northeast-2.compute.amazonaws.com:3333";
-    this.serverUrl ="http://localhost:3333";
+    this.serverUrl = "http://ec2-52-78-1-158.ap-northeast-2.compute.amazonaws.com:3333";
+    //this.serverUrl ="http://localhost:3333";
   }
 
   login(credentials){
@@ -36,7 +36,7 @@ export class Loginservice {
         .subscribe(res => {
           if(res.json().success){
             //console.log(res.json().token);
-            this.joinSocket();
+            //this.joinSocket();
             this.storeCredentials(res.json().token).then(res=>{
               if(res){
                 resolve(res);
@@ -99,7 +99,7 @@ export class Loginservice {
     });
   }
   joinSocket(){
-    this.SocketService.connectSocket(this.serverUrl);
+    this.SocketService.connectSocket();
   }
 
 

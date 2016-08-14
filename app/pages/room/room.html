@@ -21,8 +21,7 @@
   <ion-list>
 
     <ion-item *ngFor="let room of rooms" (click)="inRoomlist(room)">
-          {{room.roomname}}
-          <ion-note item-right>{{room.nton}}</ion-note>
+          <h2>{{room.roomname}}</h2>
     </ion-item>
   </ion-list>
 </ion-content>

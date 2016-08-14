@@ -14,13 +14,18 @@ declare var io;
 export class Socket {
   data: any;
   socket : any;
+  serverUrl = "http://ec2-52-78-1-158.ap-northeast-2.compute.amazonaws.com:3333";
+  //serverUrl ="http://localhost:3333";
 
   constructor(private http: Http, public ngzone : NgZone ) {
     this.data = null;
   }
-  connectSocket(server_url : string){
-    console.log("url",server_url);
-    this.socket = io(server_url);
+  connectSocket(){
+    console.log("url",this.serverUrl);
+    this.socket = io(this.serverUrl);
+  }
+  diconnectSocket(){
+    this.socket.disconnect();
   }
   getSocket(){
     return this.socket;
